@@ -1,10 +1,10 @@
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
 from .models import *
 from .serializers import *
 
 class EarningModelViewSet(viewsets.ModelViewSet):
-	queryset = Earning.objects.all().order_by('id')
+	queryset = Earning.objects.all()
 	serializer_class = EarningSerializer
 
 

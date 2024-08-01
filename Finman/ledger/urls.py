@@ -1,12 +1,6 @@
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
 from .views import *
-from .viewsets import *
-
-
-router = DefaultRouter()
-router.register(r'earning', EarningModelViewSet)
-router.register(r'tax', TaxModelViewSet)
+from .router import router
 
 
 urlpatterns = [

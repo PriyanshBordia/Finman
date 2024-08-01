@@ -1,4 +1,4 @@
- """
+"""
 URL configuration for Finman project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -19,5 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('finman/', include("ledger.urls", namespace='finman'))
+    # path('account/', include('accounts.urls')),
+    path('account/', include('django.contrib.auth.urls')),
+    path('finman/', include("ledger.urls"))
 ]

@@ -24,21 +24,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.getenv("DEBUG", False)
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'ledger.apps.LedgerServiceConfig',
+    'auth.apps.AuthConfig',
+    'ledger.apps.LedgerConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Finman.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -82,7 +95,7 @@ DATABASES = {
     },
 
     'ledger': {
-        "ENGINE": "django.db.backends.postgressql",
+        "ENGINE": "django.db.backends.postgresql",
 		"NAME": os.getenv("DB_NAME"),
 		"USER": os.getenv("DB_USERNAME"),
 		"PASSWORD": os.getenv("DB_PASSWORD"),

@@ -4,6 +4,6 @@ from .router import router
 
 
 urlpatterns = [
-	path('home/', home, name="home"),
+	path('', health, name="health"),
 	path('api/v1/', include(router.urls), name="api"),
 ]

@@ -3,8 +3,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-def home(request):
-	return render(request, "home.html")
+@api_view(['GET'])
+def health(_):
+	return Response({"success": True})
 
 
 @api_view(['GET'])
